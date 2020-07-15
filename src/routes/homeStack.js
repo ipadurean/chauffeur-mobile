@@ -1,18 +1,22 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import React from 'react';
+import Header from '../shared/header';
 
 const screens = {
   Login: {
     screen: Login,
-    navigationOptions: {
-      title: 'Home'
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header title='Home' navigation={navigation} />
+      }
     }
   },
   Register: {
      screen: Register,
      navigationOptions: {
-      title: 'Register'
+      title: 'Home'
      }
   }
 }
