@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { StyleSheet, Button, View, TextInput } from 'react-native';
+import { loginAction } from '../ducks/operations';
 
 
 
@@ -17,14 +18,7 @@ class Login extends Component {
     return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = () => {
     this.props.login(this.state)
   }
 
@@ -35,23 +29,22 @@ class Login extends Component {
 
   render() {
   const { navigation } = this.props
+  
     return (
       <View style={styles.container}>
-        <View onSubmit={this.handleSubmit}>
+        <View>
             <TextInput
               style={styles.input}
-              id="username"
               placeholder= "username"
-              onChange={this.handleChange}
+              onChangeText={(text) => this.setState({username: text})}
             />
             <TextInput
               style={styles.input}
-              id="password"
               type="password"
               placeholder="password"
-              onChange={this.handleChange}
+              onChangeText={(text) => this.setState({password: text})}
               />
-            <Button title='Login' />
+            <Button title='Login' onPress={this.handleSubmit} />
             <Button title='Continue as Guest' />
             <Button title='Register' onPress={() => navigation.navigate("Register")} />
         </View>
@@ -81,10 +74,10 @@ const styles = StyleSheet.create({
 
 });
 
-// function mapDispatchToProps(dispatch){
-//   return { 
-//     login: (loginParams) => dispatch(loginAction(loginParams))
-//   }
-// }
+function mapDispatchToProps(dispatch){
+  return { 
+    login: (loginParams) => dispatch(loginAction(loginParams))
+  }
+}
 
-export default Login
+export default connect(null, mapDispatchToProps)(Login)
