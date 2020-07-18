@@ -33,7 +33,6 @@ const baseUrl = 'https://radiant-fjord-35660.herokuapp.com'
 
 
 export const loginAction = (loginParams) => {
-  console.log('success')
   return function (dispatch) {
     fetch(`${baseUrl}/auth`, {
       method: 'POST',

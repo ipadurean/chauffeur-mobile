@@ -45,7 +45,7 @@ class Login extends Component {
               onChangeText={(text) => this.setState({password: text})}
               />
             <Button title='Login' onPress={this.handleSubmit} />
-            <Button title='Continue as Guest' />
+            <Button title='Continue as Guest' onPress={() => navigation.navigate("drivers")} />
             <Button title='Register' onPress={() => navigation.navigate("Register")} />
         </View>
       </View>

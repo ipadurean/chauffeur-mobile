@@ -1,8 +1,9 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../Auth/containers/Login';
-import Register from '../Auth/containers/Register';
 import React from 'react';
 import Header from '../shared/header';
+import Register from '../Auth/containers/Register';
+import Home from '../Home/containers/Home';
 
 const screens = {
   Login: {
@@ -18,6 +19,13 @@ const screens = {
      navigationOptions: {
       title: 'Home'
      }
+  },
+
+  drivers: {
+    screen: Home,
+    navigationOptions: {
+      title: 'drivers'
+    }
   }
 }
 
