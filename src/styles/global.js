@@ -17,6 +17,7 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "row",
     padding: 20,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#e6e1c8"
   },
 });
