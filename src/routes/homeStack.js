@@ -4,6 +4,8 @@ import React from 'react';
 import Header from '../shared/header';
 import Register from '../Auth/containers/Register';
 import Home from '../Home/containers/Home';
+import DriverProfile from '../Home/containers/DriverProfile';
+import BookingCalendar from '../Booking/containers/BookingCalendar';
 
 const screens = {
   Login: {
@@ -24,7 +26,21 @@ const screens = {
   drivers: {
     screen: Home,
     navigationOptions: {
-      title: 'drivers'
+      title: 'Drivers'
+    }
+  },
+
+  profile: {
+    screen: DriverProfile,
+    navigationOptions: {
+      title: 'Profile'
+    }
+  },
+
+  bookingCalendar: {
+    screen: BookingCalendar,
+    navigationOptions: {
+      title: 'Boooking'
     }
   }
 }

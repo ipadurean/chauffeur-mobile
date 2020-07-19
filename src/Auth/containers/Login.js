@@ -56,7 +56,6 @@ class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e6e1c8',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,

@@ -32,13 +32,12 @@ const Driver = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#e6e1c8',
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: 'gray', 
-    borderWidth: 1,
+    borderColor: '#c5ccd1', 
+    borderWidth: 0.5,
   },
   group1: {
     width: 0.45 * windowWidth,
