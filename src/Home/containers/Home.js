@@ -47,9 +47,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   loading: {
     fontSize: 18
   },
+  
   list: {
     flexDirection: "row",
     alignItems: "center",

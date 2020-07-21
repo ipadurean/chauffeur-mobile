@@ -23,7 +23,9 @@ const Driver = (props) => {
       <View style={styles.group2}>
         <Text>Rate: ${driver.rate}/hour</Text>
         <TouchableOpacity>
-          <Text style={styles.book}> Book ride </Text>
+          <View style={styles.bookButton}>
+            <Text style={styles.bookText}> Book ride </Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>  
@@ -47,16 +49,29 @@ const styles = StyleSheet.create({
     width: 0.35 * windowWidth,
     padding: 10
   },
-  book: {
-     fontSize: 20,
-     color: "#423d39",
-     borderWidth: 1,
-     borderRadius: 5,
-     borderColor: "#574d45",
-     backgroundColor: "silver",
-     padding: 3,
-     margin: 3
+  bookButton: {
+    borderRadius: 15,
+    backgroundColor: "#2f4569",
+    alignItems: "center",
+    padding: 3,
+    margin: 3,
+    shadowColor: "#000",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    
+    elevation: 10,
   },
+
+  bookText: {
+    fontSize: 20,
+    color: "white"
+  },
+
   name: {
     fontSize: 20,
   },
