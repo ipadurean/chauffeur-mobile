@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View,  Text, SafeAreaView, Button, StyleSheet } from "react-native";
+import { View,  Text, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 import { MaterialIcons } from '@expo/vector-icons';
 import { selectDay } from '../ducks/actions';
 import { connect } from "react-redux";
+
 
 class BookingCalendar extends Component {
 
@@ -22,7 +23,7 @@ class BookingCalendar extends Component {
         monthSelected: prevState.monthSelected - 1,
         })
       );
-    this.props.setDay(null)
+    this.props.sendDate(null)
   }
 
   monthNext = () => {
@@ -30,7 +31,12 @@ class BookingCalendar extends Component {
       monthSelected: prevState.monthSelected + 1,
       })
     )
-    this.props.setDay(null)
+    this.props.sendDate(null)
+  }
+
+  handlePress = (value) => {
+    const date = new Date(new Date().getFullYear(), this.state.monthSelected, value).getTime();
+    this.props.sendDate(date)
   }
 
   getMonthYear = () => {
@@ -49,9 +55,10 @@ class BookingCalendar extends Component {
       'December'
     ];
     let date = new Date();
-    date.setMonth(this.state.monthSelected);
+      date.setMonth(this.state.monthSelected);
     return months[this.state.monthSelected % 12] + " " + date.getFullYear()
   }
+
 
   createMonth = () => {
     const { monthSelected } = this.state;
@@ -73,35 +80,37 @@ class BookingCalendar extends Component {
       )
     }
     while (day <= monthSize) {
+ 
       daySelected && day === select.getDate() ?
         daysArr.push(
-          <View key={day} style={styles.dateBox}>
-            <View>
-              <Text style={styles.date}>{day}</Text>
-            </View>
-          </View>
+          <TouchableOpacity key={day} style={styles.dateBox} onPress={this.handlePress.bind(this, day)}>
+              <View style={styles.selected}>
+                <Text style={styles.date}>{day}</Text>
+              </View>
+          </TouchableOpacity>
         ) :
         day === new Date().getDate() && new Date().getMonth() === date.getMonth() ?
           daysArr.push(
-            <View key={day} style={styles.dateBox}>
-              <View style={styles.today}>
-                <Text style={styles.date}>{day}</Text>
-              </View>
-            </View>) :
+            <TouchableOpacity key={day} style={styles.dateBox} onPress={this.handlePress.bind(this, day)}>
+                <View style={styles.today}>
+                  <Text style={styles.date}>{day}</Text>
+                </View>
+            </TouchableOpacity>
+            ) :
           date.setDate(day) < new Date().getTime() ?
             daysArr.push(
-              <View key={day} style={styles.disabled} pointerEvents="none">
-                <View>
-                  <Text style={styles.date}>{day}</Text>
+                <View key={day} style={styles.disabled} pointerEvents="none">
+                  <View>
+                    <Text style={styles.date}>{day}</Text>
+                  </View>
                 </View>
-              </View>
             ) :
             daysArr.push(
-              <View key={day} style={styles.dateBox}>
-                <View>
-                  <Text style={styles.date}>{day}</Text>
-                </View>
-              </View>
+              <TouchableOpacity key={day} style={styles.dateBox} onPress={this.handlePress.bind(this, day)}>
+                  <View>
+                    <Text style={styles.date}>{day}</Text>
+                  </View>
+              </TouchableOpacity>
             )
       day++
     }
@@ -114,9 +123,9 @@ class BookingCalendar extends Component {
         <View style={styles.calendarBox}>
           <Text style={{margin: 10}}>Select date and time: </Text>
           <View style={styles.headerTop}>
-            <MaterialIcons name="arrow-back" size={34} onPress={this.monthPrev} />
+            <MaterialIcons name="arrow-back" size={32} onPress={this.monthPrev} />
               <Text style={styles.month}>{this.getMonthYear()}</Text>
-            <MaterialIcons name="arrow-forward" size={34} onPress={this.monthNext} />
+            <MaterialIcons name="arrow-forward" size={32} onPress={this.monthNext} />
           </View>
           <View style={styles.week}>
             <View style={styles.day}><Text style={styles.dayText}>Sun</Text></View>
@@ -127,9 +136,9 @@ class BookingCalendar extends Component {
             <View style={styles.day}><Text style={styles.dayText}>Fri</Text></View>
             <View style={styles.day}><Text style={styles.dayText}>Sat</Text></View>
           </View>
-          <View style={styles.calendarBody}>
-            {this.createMonth()}
-          </View>
+           <View style={styles.calendarBody}>
+              {this.createMonth()}
+            </View>
         </View>
       </SafeAreaView>
     )
@@ -225,6 +234,14 @@ const styles = StyleSheet.create({
     padding: 5
   },
 
+  selected: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#7eabd9",
+    padding: 5
+  },
+
 })
 
 function mapStateToProps(state) {
@@ -235,7 +252,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setDay: (value) => dispatch(selectDay(value))
+    sendDate: (value) => dispatch(selectDay(value))
   }
 }
 
